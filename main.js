@@ -29,7 +29,7 @@ requirejs([ 'lexer' ], function( Lexer ) {
     { name: 'class_start',         re: '(\\[)(?=[^^])' },
     { name: 'class_end',           re: '(\\])'         },
     { name: 'negate_class',        re: '(\\^)'         },
-    { name: 'back_ref',            re: '\\\\(\\d)'     }
+    { name: 'back_ref',            re: '\\\\(\\d+)'    }
   ]);
 
   console.log( lexer.tokenize( '.*SE.*UE.*' ));
