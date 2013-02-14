@@ -49,11 +49,11 @@ requirejs([ 'lexer' ], function( Lexer ) {
     var tokens = lexer.tokenize( string );
     var transformedRegex = '';
     for ( var i = 0; i < tokens.length; ++i ) {
-      var token = tokens[i];
+      var nextToken, token = tokens[i];
       switch ( token.name ) {
       case 'class_start':
         transformedRegex += token.value + ' ';
-        var nextToken = tokens[ i + 1 ];
+        nextToken = tokens[ i + 1 ];
         while ( nextToken.name === 'char' ) {
           transformedRegex += nextToken.value;
           nextToken = tokens[ ++i + 1 ];
@@ -62,7 +62,7 @@ requirejs([ 'lexer' ], function( Lexer ) {
 
       case 'negated_class_start':
         transformedRegex += token.value;
-        var nextToken = tokens[ i + 1 ];
+        nextToken = tokens[ i + 1 ];
         while ( nextToken.name === 'char' ) {
           transformedRegex += nextToken.value;
           nextToken = tokens[ ++i + 1 ];
