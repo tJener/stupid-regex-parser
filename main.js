@@ -21,6 +21,7 @@ requirejs([ 'lexer' ], function( Lexer ) {
     { name: 'char',                re: '([A-Za-z])'    },
     { name: 'wildcard',            re: '(\\.)'         },
     { name: 'kleene',              re: '(\\*)'         },
+    { name: 'maybe',               re: '(\\?)'         },
     { name: 'plus',                re: '(\\+)'         },
     { name: 'alternation',         re: '(\\|)'         },
     { name: 'group_start',         re: '(\\()'         },
