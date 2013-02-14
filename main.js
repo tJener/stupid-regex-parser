@@ -29,7 +29,6 @@ requirejs([ 'lexer' ], function( Lexer ) {
     { name: 'negated_class_start', re: '(\\[\\^)'   },
     { name: 'class_start',         re: '(\\[)'      },
     { name: 'class_end',           re: '(\\])'      },
-    { name: 'negate_class',        re: '(\\^)'      },
     { name: 'back_ref',            re: '\\\\(\\d+)' }
   ]);
 
