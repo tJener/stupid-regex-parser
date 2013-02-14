@@ -15,7 +15,7 @@ requirejs.config({
   nodeRequire: require
 });
 
-requirejs([ 'lexer' ], function( Lexer ) {
+requirejs([ 'lexer', 'pratt', 'assert' ], function( Lexer, Parser, assert ) {
   var lexer = new Lexer();
   lexer.setDefinitions([
     { name: 'char',                re: '([A-Za-z])' },
@@ -31,6 +31,36 @@ requirejs([ 'lexer' ], function( Lexer ) {
     { name: 'class_end',           re: '(\\])'      },
     { name: 'back_ref',            re: '\\\\(\\d+)' }
   ]);
+
+  var parser = new Parser();
+  parser.addRule( 'char', function( token ) {
+    return [ token.value ];
+  }, function( left, token ) {
+    if ( Array.isArray( left )) {
+      left.push( token.value );
+      return left;
+    } else {
+      return [ left, token.value ];
+    }
+  }, 5 );
+
+  parser.addRule( 'group_start', function( token ) {
+    return { name: 'group', value: this.parseExpression() };
+  }, function( left, token ) {
+    left.push({ name: 'group', value: this.parseExpression() });
+    return left;
+  }, 10 );
+
+  parser.addRule( 'group_end' );
+  parser.addRule( '(end)', function( token ) {
+    return [];
+  });
+
+  console.log( parser.parse( lexer.tokenize( 'CC' )));
+  console.log( parser.parse( lexer.tokenize( '(CC)' )));
+  console.log( parser.parse( lexer.tokenize( '(CC)C' )));
+  console.log( parser.parse( lexer.tokenize( 'C(CC)C' )));
+  console.log( parser.parse( lexer.tokenize( 'C(CC)' )));
 
   [ '.*SE.*UE.*',
     '.*LR.*RL.*',
