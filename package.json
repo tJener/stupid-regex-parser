@@ -1,0 +1,37 @@
+{
+  "name": "stupid-regex-parser",
+  "description": "The best project ever.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/tJener/stupid-regex-parser",
+  "author": {
+    "name": "Eric Li",
+    "email": "li.zhe.hua@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tJener/stupid-regex-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tJener/stupid-regex-parser/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/tJener/stupid-regex-parser/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/stupid-regex-parser",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "requirejs": "*"
+  },
+  "devDependencies": {
+    "grunt": "0.3.17"
+  },
+  "keywords": []
+}
