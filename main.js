@@ -47,6 +47,45 @@ requirejs([ 'lexer' ], function( Lexer ) {
     '[CHMNOR]*I[CHMNOR]*',
     '(ND|ET|IN)[^X]*'
   ].forEach(function( string ) {
-    lexer.tokenize( string );
+    var tokens = lexer.tokenize( string );
+    var transformedRegex = '';
+    for ( var i = 0; i < tokens.length; ++i ) {
+      var token = tokens[i];
+      switch ( token.name ) {
+      case 'class_start':
+        transformedRegex += token.value + ' ';
+        var nextToken = tokens[ i + 1 ];
+        while ( nextToken.name === 'char' ) {
+          transformedRegex += nextToken.value;
+          nextToken = tokens[ ++i + 1 ];
+        }
+        break;
+
+      case 'negated_class_start':
+        transformedRegex += token.value;
+        var nextToken = tokens[ i + 1 ];
+        while ( nextToken.name === 'char' ) {
+          transformedRegex += nextToken.value;
+          nextToken = tokens[ ++i + 1 ];
+        }
+        break;
+
+      case 'back_ref':
+        transformedRegex += '\\' + token.value;
+        break;
+
+      case 'char':
+        transformedRegex += '[' + ' ' + token.value + ']';
+        break;
+
+      case '(end)':
+        break;
+
+      default:
+        transformedRegex += token.value;
+      }
+    }
+
+    console.log( transformedRegex );
   });
 });
