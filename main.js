@@ -33,6 +33,20 @@ requirejs([ 'lexer' ], function( Lexer ) {
     { name: 'back_ref',            re: '\\\\(\\d+)'    }
   ]);
 
-  console.log( lexer.tokenize( '.*SE.*UE.*' ));
-  console.log( lexer.tokenize( '([^MC]|MM|CC)*' ));
+  [ '.*SE.*UE.*',
+    '.*LR.*RL.*',
+    '.*OXR.*',
+    '([^EMC]|EM)*',
+    '(HHX|[^HX])*',
+    '.*PRR.*DDC.*',
+    '.*',
+    '[AM]*CM(RC)*R?',
+    '([^MC]|MM|CC)*',
+    '(E|CR|MN)*',
+    'P+(..)\\1.*',
+    '[CHMNOR]*I[CHMNOR]*',
+    '(ND|ET|IN)[^X]*'
+  ].forEach(function( string ) {
+    lexer.tokenize( string );
+  });
 });
