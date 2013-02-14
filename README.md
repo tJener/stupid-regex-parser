@@ -1,14 +1,9 @@
 # stupid-regex-parser
 
-The best project ever.
+Because [Atwood's Law](http://www.codinghorror.com/blog/2007/07/the-principle-of-least-power.html).
 
 ## Getting Started
-Install the module with: `npm install stupid-regex-parser`
-
-```javascript
-var stupid_regex_parser = require('stupid-regex-parser');
-stupid_regex_parser.awesome(); // "awesome"
-```
+Everything is a mess. Run an example with: `node main.js`
 
 ## Documentation
 _(Coming soon)_

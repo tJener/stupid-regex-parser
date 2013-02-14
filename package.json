@@ -20,7 +20,6 @@
       "url": "https://github.com/tJener/stupid-regex-parser/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "lib/stupid-regex-parser",
   "engines": {
     "node": ">= 0.6.0"
   },
