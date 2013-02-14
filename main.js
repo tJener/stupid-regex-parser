@@ -18,19 +18,19 @@ requirejs.config({
 requirejs([ 'lexer' ], function( Lexer ) {
   var lexer = new Lexer();
   lexer.setDefinitions([
-    { name: 'char',                re: '([A-Za-z])'    },
-    { name: 'wildcard',            re: '(\\.)'         },
-    { name: 'kleene',              re: '(\\*)'         },
-    { name: 'maybe',               re: '(\\?)'         },
-    { name: 'plus',                re: '(\\+)'         },
-    { name: 'alternation',         re: '(\\|)'         },
-    { name: 'group_start',         re: '(\\()'         },
-    { name: 'group_end',           re: '(\\))'         },
-    { name: 'negated_class_start', re: '(\\[\\^)'      },
-    { name: 'class_start',         re: '(\\[)(?=[^^])' },
-    { name: 'class_end',           re: '(\\])'         },
-    { name: 'negate_class',        re: '(\\^)'         },
-    { name: 'back_ref',            re: '\\\\(\\d+)'    }
+    { name: 'char',                re: '([A-Za-z])' },
+    { name: 'wildcard',            re: '(\\.)'      },
+    { name: 'kleene',              re: '(\\*)'      },
+    { name: 'maybe',               re: '(\\?)'      },
+    { name: 'plus',                re: '(\\+)'      },
+    { name: 'alternation',         re: '(\\|)'      },
+    { name: 'group_start',         re: '(\\()'      },
+    { name: 'group_end',           re: '(\\))'      },
+    { name: 'negated_class_start', re: '(\\[\\^)'   },
+    { name: 'class_start',         re: '(\\[)'      },
+    { name: 'class_end',           re: '(\\])'      },
+    { name: 'negate_class',        re: '(\\^)'      },
+    { name: 'back_ref',            re: '\\\\(\\d+)' }
   ]);
 
   [ '.*SE.*UE.*',
