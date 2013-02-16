@@ -51,70 +51,92 @@ requirejs([ 'lexer', 'pratt', 'assert' ], function( Lexer, Parser, assert ) {
     return left;
   }, 10 );
 
+  parser.addRule( 'class_start', function( token ) {
+    return [{ name: 'char_class', negate: false, value: this.parseExpression() }];
+  }, function( left, token ) {
+    left.push({ name: 'char_class', negate: false, value: this.parseExpression() });
+    return left;
+  }, 10 );
+
   parser.addRule( 'group_end' );
+  parser.addRule( 'class_end' );
   parser.addRule( '(end)', function( token ) {
     return [];
   });
 
+  console.log( parser.parse( lexer.tokenize( '' )));
+  console.log( parser.parse( lexer.tokenize( 'C' )));
   console.log( parser.parse( lexer.tokenize( 'CC' )));
   console.log( parser.parse( lexer.tokenize( '(CC)' )));
   console.log( parser.parse( lexer.tokenize( '(CC)C' )));
   console.log( parser.parse( lexer.tokenize( 'C(CC)C' )));
   console.log( parser.parse( lexer.tokenize( 'C(CC)' )));
 
-  [ '.*SE.*UE.*',
-    '.*LR.*RL.*',
-    '.*OXR.*',
-    '([^EMC]|EM)*',
-    '(HHX|[^HX])*',
-    '.*PRR.*DDC.*',
-    '.*',
-    '[AM]*CM(RC)*R?',
-    '([^MC]|MM|CC)*',
-    '(E|CR|MN)*',
-    'P+(..)\\1.*',
-    '[CHMNOR]*I[CHMNOR]*',
-    '(ND|ET|IN)[^X]*'
-  ].forEach(function( string ) {
-    var tokens = lexer.tokenize( string );
-    var transformedRegex = '';
-    for ( var i = 0; i < tokens.length; ++i ) {
-      var nextToken, token = tokens[i];
-      switch ( token.name ) {
-      case 'class_start':
-        transformedRegex += token.value + ' ';
-        nextToken = tokens[ i + 1 ];
-        while ( nextToken.name === 'char' ) {
-          transformedRegex += nextToken.value;
-          nextToken = tokens[ ++i + 1 ];
-        }
-        break;
+  console.log( parser.parse( lexer.tokenize( '' )));
+  console.log( parser.parse( lexer.tokenize( '[C]' )));
+  console.log( parser.parse( lexer.tokenize( 'C[C]' )));
+  console.log( parser.parse( lexer.tokenize( '[C]C' )));
+  console.log( parser.parse( lexer.tokenize( 'C[C]C' )));
+  console.log( parser.parse( lexer.tokenize( '([C])' )));
+  console.log( parser.parse( lexer.tokenize( '[(C)]' )));
+  // console.log( parser.parse( lexer.tokenize( '(CC)' )));
+  // console.log( parser.parse( lexer.tokenize( '(CC)C' )));
+  // console.log( parser.parse( lexer.tokenize( 'C(CC)C' )));
+  // console.log( parser.parse( lexer.tokenize( 'C(CC)' )));
 
-      case 'negated_class_start':
-        transformedRegex += token.value;
-        nextToken = tokens[ i + 1 ];
-        while ( nextToken.name === 'char' ) {
-          transformedRegex += nextToken.value;
-          nextToken = tokens[ ++i + 1 ];
-        }
-        break;
+  // [ '.*SE.*UE.*',
+  //   '.*LR.*RL.*',
+  //   '.*OXR.*',
+  //   '([^EMC]|EM)*',
+  //   '(HHX|[^HX])*',
+  //   '.*PRR.*DDC.*',
+  //   '.*',
+  //   '[AM]*CM(RC)*R?',
+  //   '([^MC]|MM|CC)*',
+  //   '(E|CR|MN)*',
+  //   'P+(..)\\1.*',
+  //   '[CHMNOR]*I[CHMNOR]*',
+  //   '(ND|ET|IN)[^X]*'
+  // ].forEach(function( string ) {
+  //   var tokens = lexer.tokenize( string );
+  //   var transformedRegex = '';
+  //   for ( var i = 0; i < tokens.length; ++i ) {
+  //     var nextToken, token = tokens[i];
+  //     switch ( token.name ) {
+  //     case 'class_start':
+  //       transformedRegex += token.value + ' ';
+  //       nextToken = tokens[ i + 1 ];
+  //       while ( nextToken.name === 'char' ) {
+  //         transformedRegex += nextToken.value;
+  //         nextToken = tokens[ ++i + 1 ];
+  //       }
+  //       break;
 
-      case 'back_ref':
-        transformedRegex += '\\' + token.value;
-        break;
+  //     case 'negated_class_start':
+  //       transformedRegex += token.value;
+  //       nextToken = tokens[ i + 1 ];
+  //       while ( nextToken.name === 'char' ) {
+  //         transformedRegex += nextToken.value;
+  //         nextToken = tokens[ ++i + 1 ];
+  //       }
+  //       break;
 
-      case 'char':
-        transformedRegex += '[' + ' ' + token.value + ']';
-        break;
+  //     case 'back_ref':
+  //       transformedRegex += '\\' + token.value;
+  //       break;
 
-      case '(end)':
-        break;
+  //     case 'char':
+  //       transformedRegex += '[' + ' ' + token.value + ']';
+  //       break;
 
-      default:
-        transformedRegex += token.value;
-      }
-    }
+  //     case '(end)':
+  //       break;
 
-    console.log( transformedRegex );
-  });
+  //     default:
+  //       transformedRegex += token.value;
+  //     }
+  //   }
+
+  //   console.log( transformedRegex );
+  // });
 });
